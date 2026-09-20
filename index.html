@@ -49,6 +49,41 @@
     margin: 0 0 32px;
   }
 
+  .priority-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    margin: 0 0 24px;
+    border: 1px solid #e5e5e7;
+    border-radius: 10px;
+    background: #fafafa;
+    text-align: left;
+  }
+
+  .priority-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .priority-select {
+    padding: 7px 30px 7px 10px;
+    border: 1px solid #d6d6d8;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #1d1d1f;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .priority-select:focus {
+    outline: 2px solid #1d1d1f;
+    outline-offset: 2px;
+  }
+
   button {
     background: #1d1d1f;
     color: #ffffff;
@@ -73,7 +108,27 @@
     <p>DAY 11 - VS Code 안에서 Claude Code CLI 실행 중</p>
     <p>같은 프로젝트를 Desktop과 CLI에서 번갈아 수정해보겠습니다.</p>
     <p>터미널 안에서 Claude에게 수정시켰습니다.</p>
+    <div class="priority-control">
+      <label class="priority-label" for="card-priority">우선순위</label>
+      <select class="priority-select" id="card-priority" aria-label="카드 우선순위">
+        <option value="low">낮음</option>
+        <option value="normal" selected>보통</option>
+        <option value="high">높음</option>
+      </select>
+    </div>
     <button type="button">VS Code 확장에서 수정</button>
   </div>
+  <script>
+    const prioritySelect = document.querySelector('#card-priority');
+    const savedPriority = localStorage.getItem('card-priority');
+
+    if (savedPriority) {
+      prioritySelect.value = savedPriority;
+    }
+
+    prioritySelect.addEventListener('change', () => {
+      localStorage.setItem('card-priority', prioritySelect.value);
+    });
+  </script>
 </body>
 </html>
